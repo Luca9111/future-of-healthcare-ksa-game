@@ -1,60 +1,56 @@
-
-const levels = [
-    {
-        topic: "Biomechanics Basics",
-        question: "Calculate the force exerted on a knee joint during walking.",
-        options: ["300N", "500N", "700N", "900N"],
-        answer: "700N"
-    },
-    {
-        topic: "Medical Imaging Basics",
-        question: "Choose the optimal magnetic field strength for an MRI scan.",
-        options: ["0.5 Tesla", "1.5 Tesla", "3 Tesla", "5 Tesla"],
-        answer: "3 Tesla"
-    },
-    {
-        topic: "Prosthetic Design",
-        question: "Select the best material for a lightweight prosthetic limb.",
-        options: ["Steel", "Titanium", "Plastic", "Carbon Fiber"],
-        answer: "Carbon Fiber"
-    }
-    // Add more levels as needed...
+const sections = [
+    [
+        { question: "What is the force exerted on a knee joint during walking?", options: ["300N", "500N", "700N", "900N"], answer: "700N" },
+        { question: "Optimal MRI magnetic field strength?", options: ["0.5 Tesla", "1.5 Tesla", "3 Tesla", "5 Tesla"], answer: "3 Tesla" },
+        { question: "Best material for a lightweight prosthetic limb?", options: ["Steel", "Titanium", "Plastic", "Carbon Fiber"], answer: "Carbon Fiber" }
+    ],
+    [
+        { question: "Common use of robotics in surgery?", options: ["Robotic Prosthetics", "Surgical Assistance", "Medical Imaging", "Diagnostic Tools"], answer: "Surgical Assistance" },
+        { question: "Technique that uses sound waves for imaging?", options: ["MRI", "CT Scan", "Ultrasound", "X-Ray"], answer: "Ultrasound" },
+        { question: "Implant to monitor heart activity?", options: ["Pacemaker", "Defibrillator", "ECG", "Stent"], answer: "Pacemaker" }
+    ]
 ];
 
-let currentLevel = 0;
+let currentSection = 0;
+let currentQuestion = 0;
 
-function displayLevel(levelIndex) {
-    const level = levels[levelIndex];
-    document.getElementById('question').innerHTML = `Level ${levelIndex + 1}: ${level.topic}<br><br>${level.question}`;
+function displayQuestion() {
+    const section = sections[currentSection];
+    const questionData = section[currentQuestion];
+    document.getElementById('question').innerHTML = questionData.question;
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
-
-    level.options.forEach((option, index) => {
+    questionData.options.forEach(option => {
         const button = document.createElement('button');
         button.innerHTML = option;
-        button.onclick = () => checkAnswer(option, levelIndex);
+        button.onclick = () => checkAnswer(option);
         optionsDiv.appendChild(button);
     });
 }
 
-function checkAnswer(selectedOption, levelIndex) {
-    const level = levels[levelIndex];
+function checkAnswer(selectedOption) {
+    const section = sections[currentSection];
+    const correctAnswer = section[currentQuestion].answer;
     const feedbackDiv = document.getElementById('feedback');
-    if (selectedOption === level.answer) {
-        feedbackDiv.innerHTML = 'Correct! Well done.';
-        currentLevel++;
-        if (currentLevel < levels.length) {
-            setTimeout(() => {
-                feedbackDiv.innerHTML = '';
-                displayLevel(currentLevel);
-            }, 1000);
-        } else {
-            feedbackDiv.innerHTML = 'Congratulations! You have completed all levels.';
-        }
+    feedbackDiv.innerHTML = (selectedOption === correctAnswer) ? 'Correct!' : `Incorrect. The correct answer is: ${correctAnswer}`;
+}
+
+function nextQuestion() {
+    const section = sections[currentSection];
+    currentQuestion++;
+
+    if (currentQuestion < section.length) {
+        displayQuestion();
     } else {
-        feedbackDiv.innerHTML = `Incorrect. The correct answer is: ${level.answer}`;
+        currentSection++;
+        if (currentSection < sections.length) {
+            currentQuestion = 0;
+            displayQuestion();
+        } else {
+            document.getElementById('feedback').innerHTML = 'Congratulations! You have completed all sections.';
+            document.getElementById('nextButton').style.display = 'none';
+        }
     }
 }
 
-// Initialize the game
-displayLevel(currentLevel);
+displayQuestion();
