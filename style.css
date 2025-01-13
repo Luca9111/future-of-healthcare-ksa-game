@@ -55,3 +55,71 @@ h1 {
 #nextButton:hover {
     background-color: #1976D2;
 }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+header {
+    background-color: #4CAF50;
+    padding: 20px;
+}
+
+#logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: white;
+    font-size: 2em;
+}
+
+.question {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.options button {
+    padding: 15px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.options button:hover {
+    background-color: #45a049;
+}
+
+.feedback {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+#nextButton {
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#nextButton:hover {
+    background-color: #1976D2;
+}
+
+#game {
+    margin-top: 30px;
+}
