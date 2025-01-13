@@ -61,8 +61,6 @@ function displayQuestion() {
 
     // Change section background
     document.body.style.backgroundImage = `url(${questionData.background})`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
 
     // Set section title
     document.getElementById('section-header').innerText = `Section ${currentSection + 1}`;
